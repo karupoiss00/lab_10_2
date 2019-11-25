@@ -24,14 +24,14 @@ BEGIN
       {Является ли символ маркером?}
       IF (Flag = '0')
       THEN
-		BEGIN
-	      IF (C5 = 'B') AND (C4 = ' ')
-		  THEN {Возможно BEGIN}
-			Flag := C5;
-	      IF (C5 = 'E') AND ((C4 = ' ') OR (C4 = ')') OR (C4 = ';'))
-		  THEN {Возможно END}
-			Flag := C5;
-		END;
+		    BEGIN
+	        IF (C5 = 'B') AND (C4 = ' ')
+		      THEN {Возможно BEGIN}
+			      Flag := C5;
+	        IF (C5 = 'E') AND ((C4 = ' ') OR (C4 = ')') OR (C4 = ';'))
+		      THEN {Возможно END}
+			      Flag := C5;
+		    END;
 
       {Вывод идентификаторов}
       IF (Flag = '0') AND (C5 <> ' ')
