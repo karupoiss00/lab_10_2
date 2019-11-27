@@ -1,4 +1,4 @@
-PROGRAM FormatString(INPUT, OUTPUT);
+﻿PROGRAM FormatString(INPUT, OUTPUT);
 VAR
   C1, C2, C3, C4, C5, C6: CHAR;
   Flag, NewLineFlag, IndentCount, Bracket: CHAR;
@@ -28,7 +28,7 @@ BEGIN
         Flag := '0';
         IF (C5 <> ';')
         THEN
-          NewLineFlag := '1';
+          NewLineFlag := '1'
       END;
       
       {Является ли символ маркером?}
@@ -40,7 +40,7 @@ BEGIN
             Flag := C5;
           IF (C5 = 'E') AND ((C4 = ' ') OR (C4 = ')') OR (C4 = ';') OR (C4 = '}'))
           THEN {Возможно END}
-            Flag := C5;
+            Flag := C5
           END;
           
       {Проверяем начало комментариев или строковой (символьной) константы}
@@ -62,7 +62,7 @@ BEGIN
                 END
               ELSE              
                {Пробел перед началом комментариев}
-                WRITE(' ');
+                WRITE(' ')
             END;
           WRITE(C5);
           READ(C6);
@@ -70,7 +70,7 @@ BEGIN
           C2 := C3;
           C3 := C4;
           C4 := C5;
-          C5 := C6; {Передвигаем окно, включая C6}
+          C5 := C6 {Передвигаем окно, включая C6}
         END;
         
       {Вывод идентификаторов}
@@ -107,7 +107,7 @@ BEGIN
           THEN
             BEGIN
               Bracket := '0'
-            END;
+            END
         END;
         
      {Вывод комментариев}
@@ -120,7 +120,7 @@ BEGIN
             BEGIN
               Bracket := '0';
               NewLineFlag := '1'
-            END;
+            END
         END;
      {Поиск ключевого слова BEGIN}
       IF (Flag = 'B') AND (C4 = 'B') AND (C5 <> 'E')
