@@ -1,4 +1,4 @@
-﻿PROGRAM FormatString(INPUT, OUTPUT);
+PROGRAM FormatString(INPUT, OUTPUT);
 VAR
   C1, C2, C3, C4, C5, C6: CHAR;
   Flag, NewLineFlag, IndentCount, Bracket: CHAR;
@@ -38,7 +38,7 @@ BEGIN
           IF (C5 = 'B') AND (C4 = ' ')
           THEN {Возможно BEGIN}
             Flag := C5;
-          IF (C5 = 'E') AND ((C4 = ' ') OR (C4 = ')') OR (C4 = ';') OR (C4 = '}'))
+          IF (C5 = 'E') AND ((C4 = ' ') OR (C4 = ')') OR (C4 = ';') OR (C4 = '}') OR (C4 = ''''))
           THEN {Возможно END}
             Flag := C5
           END;
@@ -210,7 +210,7 @@ BEGIN
             BEGIN
               READ(C6);
               {Если действительно BEGIN}
-              IF (C6 = ' ') OR (C6 = ';')
+              IF (C6 = ' ') OR (C6 = ';') OR (C6 = '{')
               THEN
                 BEGIN
                   WRITE('BEGIN'); {Печатаем BEGIN}
@@ -223,6 +223,21 @@ BEGIN
                   C5 := C6; {Передвигаем окно, включая C6}
                   Flag := '0'; {Сбрасываем маркер}
                   
+                  IF C6 = '{' {Если за BEGIN сразу комментарий без пробела}
+                  THEN
+                    BEGIN
+                      Bracket := '{';
+                      IF (NewLineFlag = '1')
+                      THEN
+                        BEGIN
+                          NewLineFlag := '0';
+                          WRITELN;
+                          IF (IndentCount = '1')
+                          THEN
+                            WRITE('  ')
+                        END;
+                      WRITE(C6)
+                    END;
                   IF C6 = ';' {Если за BEGIN сразу пустой оператор без пробела}
                   THEN
                     BEGIN
